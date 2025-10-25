@@ -54,8 +54,8 @@ const TaskCard = ({task, onDelete}: TaskCardProps) => {
                         </CardHeader>
                         <CardContent>
                             <div className={"grid gap-4"}>
-                                <span>Start: {new Date(task.start).toLocaleString()}</span>
-                                <span>End: {new Date(task.end).toLocaleString()}</span>
+                                <span>Start: {task.start ? new Date(task.start).toLocaleString(): "N/A"}</span>
+                                <span>End: {task.end ? new Date(task.end).toLocaleString(): "N/A"}</span>
                             </div>
                         </CardContent>
                     </Card>
@@ -73,9 +73,9 @@ const TaskCard = ({task, onDelete}: TaskCardProps) => {
                             <div><strong>Description:</strong> {task.description}</div>
                             <div><strong>Location:</strong> {task.location}</div>
                             <div><strong>Reason:</strong> {task.reason}</div>
-                            <div><strong>Start:</strong> {new Date(task.start).toLocaleString()}</div>
-                            <div><strong>End:</strong> {new Date(task.end).toLocaleString()}</div>
-                            <div><strong>Created:</strong> {new Date(task.created).toLocaleString()}</div>
+                            <div><strong>Start:</strong> {task.start ? new Date(task.start).toLocaleString() : "N/A"}</div>
+                            <div><strong>End:</strong> {task.end ? new Date(task.end).toLocaleString() : "N/A"}</div>
+                            <div><strong>Created:</strong> {task.created ? new Date(task.created).toLocaleString(): "N/A"}</div>
                             {task.assigned && task.assigned.length > 0 && (
                                 <div>
                                     <strong>Assigned Soldiers:</strong>

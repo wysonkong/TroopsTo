@@ -15,7 +15,7 @@ export type Soldier = {
     id?: number;
     firstName: string;
     lastName: string;
-    rank?: string;
+    rank: string;
     squad?: string;
     team?: string;
     role?: string;

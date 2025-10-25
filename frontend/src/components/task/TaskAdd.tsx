@@ -23,6 +23,8 @@ const initialTaskSet: Task = {
     location: "",
     reason: "",
     created: "",
+    start: "",
+    end: "",
 }
 
 // @ts-ignore
