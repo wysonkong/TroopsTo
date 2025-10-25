@@ -4,7 +4,7 @@ export type SoldierCardProps = {
         firstName: string,
         lastName: string,
         rank: string,
-        squad: string,
+        squad?: string,
         team?: string,
         role?: string,
     }

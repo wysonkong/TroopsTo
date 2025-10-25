@@ -1,8 +1,9 @@
 version: "3.8"
 
 services:
+  # === DATABASE ===
   postgres-db:
-    container_name: troops
+    container_name: troops-db
     image: postgres:latest
     restart: always
     environment:
@@ -14,6 +15,35 @@ services:
       - "5418:5432"
     volumes:
       - postgresql_data:/var/lib/postgresql/data
+
+  # === BACKEND ===
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: troops-backend
+    depends_on:
+      - postgres-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/troops_db
+      SPRING_DATASOURCE_USERNAME: acc_dev
+      SPRING_DATASOURCE_PASSWORD: acc_dev12
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+    restart: always
+
+  # === FRONTEND ===
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: troops-frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+    restart: always
 
 volumes:
   postgresql_data:
