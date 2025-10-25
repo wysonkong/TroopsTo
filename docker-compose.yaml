@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  postgres-db:
+    container_name: troops
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: acc_dev
+      POSTGRES_PASSWORD: acc_dev12
+      POSTGRES_DB: troops_db
+      POSTGRES_HOST_AUTH_METHOD: password
+    ports:
+      - "5418:5432"
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+
+volumes:
+  postgresql_data:
+    driver: local
