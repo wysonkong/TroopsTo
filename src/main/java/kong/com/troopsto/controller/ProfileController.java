@@ -2,13 +2,13 @@ package kong.com.troopsto.controller;
 
 import kong.com.troopsto.dto.LoginDTO;
 import kong.com.troopsto.model.Profile;
-import kong.com.troopsto.model.Task;
 import kong.com.troopsto.service.ProfileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,7 +45,7 @@ public class ProfileController {
     }
 
     @PostMapping("/profile")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginDTO login) {
+    public ResponseEntity<Map<String, Serializable>> login(@RequestBody LoginDTO login) {
         Profile profile =  profileService.findProfileByName(login.username());
 
         if (profile == null || !passwordEncoder.matches(login.password(), profile.getPassword())) {
@@ -55,7 +55,7 @@ public class ProfileController {
         String sessionId = UUID.randomUUID().toString();
         sessions.put(sessionId, profile);
 
-        return ResponseEntity.ok(Map.of("sessionId", sessionId, "username", profile.getUsername(), "userId", Long.toString(profile.getId())));
+        return ResponseEntity.ok(Map.of("sessionId", sessionId, "username", profile.getUsername(), "userId", profile.getId()));
     }
 
     @GetMapping("/me")
