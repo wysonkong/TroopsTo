@@ -3,14 +3,15 @@ spring:
     name: troops
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/troops}
+    # Spring Boot will automatically parse username/password from DATABASE_URL
+    # if it's in the format: postgresql://user:pass@host:port/db
 
   jpa:
     generate-ddl: false
     hibernate:
       ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   docker:
     compose:
