@@ -40,8 +40,14 @@ public class ProfileController {
     }
 
     @GetMapping("/getProfile/{profileId}")
-    public Profile getProfile(@PathVariable("profileId") Long profileId) {
-        return profileService.findById(profileId);
+    public ResponseEntity<Profile> getProfile(@PathVariable("profileId") Long profileId) {
+        Profile profile = profileService.findById(profileId);
+
+        if (profile == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(profile);
     }
 
     @PostMapping("/profile")
