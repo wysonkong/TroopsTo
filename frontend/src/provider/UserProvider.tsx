@@ -1,6 +1,7 @@
 import type {User} from "@/interface/User.tsx";
 import React, {createContext, useContext, useEffect, useState} from "react";
 import {useAuth} from "@/provider/AuthProvider.tsx";
+import { apiUrl } from "@/config/api";  // ← ADD THIS
 
 interface UserContextType {
     user: User | null;
@@ -26,7 +27,7 @@ export const UserProvider = ({children}:{children: React.ReactNode}) => {
 
         async function fetchUser(userId: number): Promise<User | null> {
             try {
-                const res = await fetch("http://localhost:8080/api/user/getProfile/" + userId, {
+                const res = await fetch(apiUrl("/api/user/getProfile/" + userId), {  // ← CHANGED THIS LINE
                     method: "GET",
                 });
                 const data: User = await res.json();
