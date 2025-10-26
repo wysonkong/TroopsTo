@@ -154,7 +154,7 @@ const SignupPage = () => {
                                 </FieldDescription>
                             </Field>
                             <Field>
-                                <FieldLabel htmlFor="Code" className={"text-card-foreground"}>Code</FieldLabel>
+                                <FieldLabel htmlFor="code" className={"text-card-foreground"}>Code</FieldLabel>
                                 <Input
                                     id="code"
                                     type="code"
