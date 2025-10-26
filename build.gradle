@@ -28,6 +28,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'com.h2database:h2'  // ← ADD THIS LINE
     runtimeOnly 'org.springframework.boot:spring-boot-docker-compose'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.flywaydb:flyway-database-postgresql'
