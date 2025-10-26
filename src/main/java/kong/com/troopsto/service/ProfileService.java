@@ -24,11 +24,13 @@ public class ProfileService {
     }
 
     public Profile registerUser(Profile profile) {
-        if (profile.getRole() == null) {
-            profile.setRole(Role.valueOf("USER"));
-        }
         profile.setPassword(passwordEncoder.encode(profile.getPassword()));
-        return profileRepository.save(profile);
+
+        Profile savedProfile = profileRepository.save(profile);
+
+        System.out.println("Registered user with ID: " + savedProfile.getId());
+
+        return savedProfile;
     }
 
     public Profile findProfileByName(String username) {
