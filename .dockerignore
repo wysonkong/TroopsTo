@@ -1,0 +1,29 @@
+# Frontend build artifacts
+frontend/node_modules
+frontend/build
+frontend/.vite
+frontend/dist
+
+# Backend build artifacts
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE files
+.idea
+*.iml
+.vscode/
+
+# Git
+.git
+.gitignore
+
+# Other
+*.md
+docker-compose.yaml
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
