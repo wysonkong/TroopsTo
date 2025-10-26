@@ -1,11 +1,11 @@
 spring:
   application:
-    name: troops #change this
+    name: troops
 
   datasource:
-    url: jdbc:postgresql://localhost:5418/troops_db
-    username: acc_dev
-    password: acc_dev12
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
   jpa:
     generate-ddl: false
@@ -23,4 +23,4 @@ spring:
 
 server:
   address: 0.0.0.0
-  port: 8080
+  port: ${PORT:8080}
