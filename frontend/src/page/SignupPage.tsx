@@ -5,7 +5,7 @@ import {
     FieldLabel,
     FieldSet,
 } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+import {Input} from "@/components/ui/input"
 import {Button} from "@/components/ui/button.tsx";
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
@@ -55,23 +55,23 @@ const SignupPage = () => {
 
         try {
             if (code === "hooligans") {
-                const response = await fetch("http://localhost:8080/api/user/new_profile", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                    role: "ADMIN",
-                }),
-            });
+                const response = await fetch(apiUrl("/api/user/new_profile"), {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                        role: "ADMIN",
+                    }),
+                });
                 if (!response.ok) {
                     console.log("Admin sign up failed");
                     return;
                 }
             } else {
-                const response = await fetch("http://localhost:8080/api/user/new_profile", {
+                const response = await fetch(apiUrl("/api/user/new_profile"), {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({
                         username: username,
                         password: password,
@@ -84,14 +84,12 @@ const SignupPage = () => {
             }
 
 
-
-
             console.log("Successfully signed up");
             setUsername("");
             setPassword("");
             setFeedback("Sign up successful!");
 
-            const loginRes = await fetch("http://localhost:8080/api/user/profile", {
+            const loginRes = await fetch(apiUrl("/api/user/profile"), {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({username, password}),
@@ -168,8 +166,10 @@ const SignupPage = () => {
                                 </FieldDescription>
                             </Field>
                             <Field orientation="horizontal">
-                                <Button type="submit" disabled={!isValid} className={"bg-accent text-accent-foreground"}>Submit</Button>
-                                <Button variant="outline" type="reset" className={"bg-foreground text-background"}>Reset</Button>
+                                <Button type="submit" disabled={!isValid}
+                                        className={"bg-accent text-accent-foreground"}>Submit</Button>
+                                <Button variant="outline" type="reset"
+                                        className={"bg-foreground text-background"}>Reset</Button>
                             </Field>
                         </FieldGroup>
                     </FieldSet>
