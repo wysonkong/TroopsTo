@@ -29,25 +29,37 @@ public class ProfileController {
     }
 
     @PostMapping("/new_profile")
-    public void saveNewUser(@RequestBody Profile profile) {
-        profileService.registerUser(profile);
+    public ResponseEntity<Map<String, Object>> saveNewUser(@RequestBody Profile profile) {
+        Profile savedProfile = profileService.registerUser(profile);
+
+        System.out.println("User saved with ID: " + savedProfile.getId());
+
+        return ResponseEntity.ok(Map.of(
+                "message", "User created successfully",
+                "userId", savedProfile.getId(),
+                "username", savedProfile.getUsername()
+        ));
+    }
+
+    @GetMapping("/getProfile/{profileId}")
+    public ResponseEntity<Profile> getProfile(@PathVariable("profileId") Long profileId) {
+        System.out.println("Fetching profile with ID: " + profileId);
+
+        Profile profile = profileService.findById(profileId);
+
+        if (profile == null) {
+            System.out.println("Profile not found for ID: " + profileId);
+            return ResponseEntity.notFound().build();
+        }
+
+        System.out.println("Found profile: " + profile.getUsername());
+        return ResponseEntity.ok(profile);
     }
 
     @GetMapping("/findProfile")
     public Map<String, Boolean> findUser(@RequestParam String username) {
         Boolean exists = profileService.existsByUsername(username);
         return Map.of("exists", exists);
-    }
-
-    @GetMapping("/getProfile/{profileId}")
-    public ResponseEntity<Profile> getProfile(@PathVariable("profileId") Long profileId) {
-        Profile profile = profileService.findById(profileId);
-
-        if (profile == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(profile);
     }
 
     @PostMapping("/profile")
