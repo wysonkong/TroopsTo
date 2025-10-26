@@ -4,6 +4,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/provider/AuthProvider.tsx";
 import React, {useState} from "react";
+import {apiUrl} from "@/config/api.tsx";
 
 const LoginPage = () => {
     const {login} = useAuth();
@@ -13,7 +14,7 @@ const LoginPage = () => {
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        const res = await fetch("http://localhost:8080/api/user/profile", {
+        const res = await fetch(apiUrl("/api/user/profile"), {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({username, password}),

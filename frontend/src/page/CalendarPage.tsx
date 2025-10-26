@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import type {Task} from "@/type/Task.tsx";
 import type {Soldier} from "@/type/Soldier.tsx";
+import {apiUrl} from "@/config/api.tsx";
 
 
 const CalendarPage = () => {
@@ -25,7 +26,7 @@ const CalendarPage = () => {
 
     const fetchTasks = async () => {
         try {
-            const res = await fetch("http://localhost:8080/api/task/tasks");
+            const res = await fetch(apiUrl("/api/task/tasks"));
             const data = await res.json();
             setTasks(data);
         } catch (e) {

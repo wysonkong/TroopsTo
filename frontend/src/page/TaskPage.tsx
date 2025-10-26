@@ -5,6 +5,7 @@ import TaskAdd from "@/components/task/TaskAdd.tsx";
 import TaskCard from "@/components/task/TaskCard.tsx";
 import type {Task} from "@/type/Task.tsx";
 import { CalendarX2 } from "lucide-react";
+import {apiUrl} from "@/config/api.tsx";
 
 const TaskPage = () => {
     const {isLoggedIn} = useAuth();
@@ -15,7 +16,7 @@ const TaskPage = () => {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const res = await fetch("http://localhost:8080/api/task/tasks")
+                const res = await fetch(apiUrl("/api/task/tasks"))
                 const data = await res.json();
                 setTasks(data)
             } catch (e) {
@@ -36,7 +37,7 @@ const TaskPage = () => {
         }
 
         try{
-            const res = await fetch("http://localhost:8080/api/task/new_task", {
+            const res = await fetch(apiUrl("/api/task/new_task"), {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(newTask),

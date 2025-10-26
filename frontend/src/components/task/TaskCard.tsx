@@ -11,6 +11,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {useUser} from "@/provider/UserProvider.tsx";
 import type {TaskCardProps} from "@/type/Task.tsx";
 import SoldierSelector from "@/components/soldier/SoldierSelector.tsx";
+import {apiUrl} from "@/config/api.tsx";
 
 const TaskCard = ({task, onDelete}: TaskCardProps) => {
     const {user} = useUser();
@@ -19,7 +20,7 @@ const TaskCard = ({task, onDelete}: TaskCardProps) => {
 
     const handleDelete = async () => {
         try {
-            const res = await fetch("http://localhost:8080/api/task/delete/" + task.id, {
+            const res = await fetch(apiUrl("/api/task/delete/" + task.id), {
                 method: "DELETE",
             });
 

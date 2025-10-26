@@ -10,6 +10,7 @@ import {useState} from "react";
 import {Button} from "@/components/ui/button.tsx";
 import type {SoldierCardProps} from "@/type/Soldier.tsx";
 import {useUser} from "@/provider/UserProvider.tsx";
+import {apiUrl} from "@/config/api.tsx";
 
 const SoldierCard = ({soldier, onDelete}: SoldierCardProps) => {
     const {user} = useUser();
@@ -18,7 +19,7 @@ const SoldierCard = ({soldier, onDelete}: SoldierCardProps) => {
 
     const handleDelete = async () => {
         try {
-            const res = await fetch("http://localhost:8080/api/soldier/delete/" + soldier.id, {
+            const res = await fetch(apiUrl("/api/soldier/delete/" + soldier.id), {
                 method: "DELETE",
             });
 

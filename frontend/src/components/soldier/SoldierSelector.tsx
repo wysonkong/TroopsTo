@@ -11,6 +11,7 @@ import {
     DialogTitle,
     DialogTrigger
 } from "@/components/ui/dialog";
+import {apiUrl} from "@/config/api.tsx";
 
 type Soldier = {
     id: number;
@@ -44,7 +45,7 @@ const SoldierSelector = ({ taskId, taskStart, taskEnd, onAssignComplete }: Soldi
     const fetchAvailableSoldiers = async () => {
         setLoading(true);
         try {
-            const url = `http://localhost:8080/api/soldier/available?taskStart=${encodeURIComponent(taskStart)}&taskEnd=${encodeURIComponent(taskEnd)}`;
+            const url = apiUrl(`/api/soldier/available?taskStart=${encodeURIComponent(taskStart)}&taskEnd=${encodeURIComponent(taskEnd)}`);
             const res = await fetch(url);
 
             if (!res.ok) {
@@ -75,7 +76,7 @@ const SoldierSelector = ({ taskId, taskStart, taskEnd, onAssignComplete }: Soldi
         const soldierIds = Array.from(selectedSoldiers);
 
         try {
-            const res = await fetch(`http://localhost:8080/api/task/${taskId}/assign`, {
+            const res = await fetch(apiUrl(`/api/task/${taskId}/assign`), {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(soldierIds),

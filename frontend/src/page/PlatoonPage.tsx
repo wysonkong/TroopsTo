@@ -5,6 +5,7 @@ import type {Soldier} from "@/type/Soldier.tsx";
 import SoldierAdd from "@/components/soldier/SoldierAdd.tsx";
 import {useUser} from "@/provider/UserProvider.tsx";
 import {UserRoundMinus} from "lucide-react";
+import {apiUrl} from "@/config/api.tsx";
 
 const PlatoonPage = () => {
     const {isLoggedIn} = useAuth();
@@ -16,7 +17,7 @@ const PlatoonPage = () => {
     useEffect(() => {
         const fetchSoldiers = async () => {
             try {
-                const res = await fetch("http://localhost:8080/api/soldier/soldiers")
+                const res = await fetch(apiUrl("/api/soldier/soldiers"))
                 const data = await res.json();
                 setSoldiers(data)
             } catch (e) {
@@ -37,7 +38,7 @@ const PlatoonPage = () => {
         }
 
         try{
-            const res = await fetch("http://localhost:8080/api/soldier/new_soldier", {
+            const res = await fetch(apiUrl("/api/soldier/new_soldier"), {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(newSoldier),

@@ -10,6 +10,7 @@ import {Button} from "@/components/ui/button.tsx";
 import React, {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "@/provider/AuthProvider.tsx";
+import {apiUrl} from "@/config/api.tsx";
 
 const SignupPage = () => {
     const {login} = useAuth();
@@ -28,7 +29,7 @@ const SignupPage = () => {
         } else {
             try {
                 const res = await fetch(
-                    `http://localhost:8080/api/user/findProfile?username=${encodeURIComponent(username)}`
+                    apiUrl(`/api/user/findProfile?username=${encodeURIComponent(username)}`)
                 );
                 const data = await res.json();
 
