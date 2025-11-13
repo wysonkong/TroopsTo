@@ -38,11 +38,20 @@ const TaskAdd = ({onSubmit, currentTask}: TaskAddProp) => {
     const [open, setOpen] = useState(false)
     const {user} = useUser()
 
-    const [startDate, setStartDate] = useState<Date | undefined>(undefined)
-    const [startTime, setStartTime] = useState("12:00")
+    const [startDate, setStartDate] = useState<Date | undefined>(
+        currentTask?.start ? new Date(currentTask.start) : undefined
+    );
+    const [startTime, setStartTime] = useState(
+        currentTask?.start ? new Date(currentTask.start).toISOString().slice(11, 16) : "12:00"
+    );
 
-    const [endDate, setEndDate] = useState<Date | undefined>(undefined)
-    const [endTime, setEndTime] = useState("13:00")
+    const [endDate, setEndDate] = useState<Date | undefined>(
+        currentTask?.end ? new Date(currentTask.end) : undefined
+    );
+    const [endTime, setEndTime] = useState(
+        currentTask?.end ? new Date(currentTask.end).toISOString().slice(11, 16) : "13:00"
+    );
+
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
