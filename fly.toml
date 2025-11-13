@@ -1,14 +1,12 @@
-# fly.toml app configuration file generated for troopsto on 2025-10-25T14:54:06Z
+# fly.toml app configuration file generated for troopsto on 2025-11-13T22:16:21Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
+
 app = 'troopsto'
-primary_region = 'dfw'
+primary_region = 'ams'
 
 [build]
-
-[env]
-  PORT = "8080"
 
 [http_service]
   internal_port = 8080
