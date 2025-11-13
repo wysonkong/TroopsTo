@@ -23,9 +23,14 @@ const initialSoldierSet: Soldier = {
     role: "",
 }
 
+type SoldierAddProp = {
+    onSubmit:(soldier: Soldier) => void;
+    currentSoldier?: Soldier;
+}
+
 // @ts-ignore
-const SoldierAdd = ({onSubmit}) => {
-    const [soldierData, setSoldierData] = useState<Soldier>(initialSoldierSet);
+const SoldierAdd = ({onSubmit, currentSoldier} :SoldierAddProp) => {
+    const [soldierData, setSoldierData] = useState<Soldier>(currentSoldier || initialSoldierSet);
     const [open, setOpen] = useState(false)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,17 +63,17 @@ const SoldierAdd = ({onSubmit}) => {
         <>
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button variant={"outline"} size={"lg"} className={"bg-accent"}>
-                        <UserRoundPlus />
+                    <Button variant={"outline"} size={currentSoldier ? "sm" : "lg"} className={"bg-accent"}>
+                        {currentSoldier ? "Edit" : <UserRoundPlus />}
                     </Button>
                 </DialogTrigger>
                 <DialogContent className="bg-card rounded-lg shadow-lg p-6">
                     <div className={""}>
                     <form id="addSoldier" onSubmit={handleSubmit} onReset={handleReset}>
                         <DialogHeader>
-                            <DialogTitle>Add Soldier</DialogTitle>
+                            <DialogTitle>{currentSoldier ? "Edit Soldier" : "Add Soldier"}</DialogTitle>
                             <DialogDescription>
-                                Add a New Soldier to the Platoon.
+                                {currentSoldier ? "Edit this Soldier" : "Add a New Soldier to the Platoon."}
                             </DialogDescription>
                         </DialogHeader>
                         <div className={"grid gap-4 m-4"}>

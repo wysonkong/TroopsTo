@@ -9,6 +9,7 @@ export type SoldierCardProps = {
         role?: string,
     }
     onDelete: (id: number | undefined) => void;
+    onSubmit: (soldier: Soldier) => Promise<void>;
 }
 
 export type Soldier = {

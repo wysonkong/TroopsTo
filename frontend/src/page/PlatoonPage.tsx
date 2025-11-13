@@ -70,6 +70,48 @@ const PlatoonPage = () => {
         }
     }
 
+    async function handleEdit(newSoldier: Soldier) {
+        if (!user) {
+            console.error("No user logged in");
+            alert("You must be logged in to create a widget");
+            return;
+        }
+        const soldierToUpdate = {
+            id: newSoldier.id,
+            firstName: newSoldier.firstName,
+            lastName: newSoldier.lastName,
+            rank: newSoldier.rank,
+            squad: newSoldier.squad,
+            team: newSoldier.team,
+            role: newSoldier.role,
+        }
+
+        try{
+            const res = await fetch(apiUrl("/api/soldier/new_soldier"), {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(soldierToUpdate),
+            });
+
+            if (!res.ok) {
+                const errorText = await res.text();
+                console.log("Failed to edit soldier. Status:", res.status);
+                console.log("Error response:", errorText);
+                alert("Failed to edit soldier. Check console for details.");
+                return;
+            }
+
+            const text = await res.text();
+            if (text) {
+                setSoldiers(prev => prev.map(soldier => soldier.id === newSoldier.id ? newSoldier : soldier));
+                alert("Soldier edited successfully!");
+            }
+
+        } catch (err) {
+            console.log("Error editing soldier: ", err);
+        }
+    }
+
 
     return (
         <>
@@ -106,8 +148,8 @@ const PlatoonPage = () => {
                             <SoldierCard
                                 key={soldier.id}
                                 soldier={soldier}
-                                onDelete={(id: number | undefined) => setSoldiers(prev => prev.filter(s => s.id !== id))
-                                }
+                                onDelete={(id: number | undefined) => setSoldiers(prev => prev.filter(s => s.id !== id))}
+                                onSubmit={handleEdit}
                             />
                         ))}
                     </div>

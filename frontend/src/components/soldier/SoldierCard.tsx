@@ -8,11 +8,12 @@ import {
 } from "@/components/ui/dialog.tsx";
 import {useState} from "react";
 import {Button} from "@/components/ui/button.tsx";
-import type {SoldierCardProps} from "@/type/Soldier.tsx";
+import type { SoldierCardProps} from "@/type/Soldier.tsx";
 import {useUser} from "@/provider/UserProvider.tsx";
 import {apiUrl} from "@/config/api.tsx";
+import SoldierAdd from "@/components/soldier/SoldierAdd.tsx";
 
-const SoldierCard = ({soldier, onDelete}: SoldierCardProps) => {
+const SoldierCard = ({soldier, onDelete, onSubmit}: SoldierCardProps) => {
     const {user} = useUser();
     const [open, setOpen] = useState(false);
     const admin = user?.role === "ADMIN";
@@ -78,6 +79,7 @@ const SoldierCard = ({soldier, onDelete}: SoldierCardProps) => {
                                 >
                                     Delete
                                 </Button>}
+                                <SoldierAdd onSubmit={onSubmit} currentSoldier={soldier}/>
                             </CardFooter>
                         </Card>
                     </div>

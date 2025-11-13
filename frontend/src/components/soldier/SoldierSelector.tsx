@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { CheckCircle2, UserPlus } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import {useEffect, useState} from 'react';
+import {Button} from "@/components/ui/button";
+import {Checkbox} from "@/components/ui/checkbox";
+import {Label} from "@/components/ui/label";
+import {CheckCircle2, UserPlus} from "lucide-react";
+import {Alert, AlertDescription} from "@/components/ui/alert";
 import {
     Dialog,
     DialogContent,
@@ -30,7 +30,7 @@ type SoldierSelectorProps = {
     onAssignComplete?: () => void;
 };
 
-const SoldierSelector = ({ taskId, taskStart, taskEnd, onAssignComplete }: SoldierSelectorProps) => {
+const SoldierSelector = ({taskId, taskStart, taskEnd, onAssignComplete}: SoldierSelectorProps) => {
     const [soldiers, setSoldiers] = useState<Soldier[]>([]);
     const [selectedSoldiers, setSelectedSoldiers] = useState<Set<number>>(new Set());
     const [loading, setLoading] = useState(false);
@@ -111,7 +111,7 @@ const SoldierSelector = ({ taskId, taskStart, taskEnd, onAssignComplete }: Soldi
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button size="sm" variant="outline" className="gap-2">
-                    <UserPlus className="h-4 w-4" />
+                    <UserPlus className="h-4 w-4"/>
                     Assign Soldiers
                 </Button>
             </DialogTrigger>
@@ -119,7 +119,7 @@ const SoldierSelector = ({ taskId, taskStart, taskEnd, onAssignComplete }: Soldi
                 <DialogTitle>Assign Available Soldiers</DialogTitle>
                 <DialogDescription>
                     Task Time: {new Date(taskStart).toLocaleString()} - {new Date(taskEnd).toLocaleString()}
-                    <br />
+                    <br/>
                     <span className="text-xs">Showing only soldiers without conflicting tasks</span>
                 </DialogDescription>
 
@@ -160,7 +160,7 @@ const SoldierSelector = ({ taskId, taskStart, taskEnd, onAssignComplete }: Soldi
                                 {soldier.firstName} {soldier.lastName}
                             </span>
                                                         {isSelected && (
-                                                            <CheckCircle2 className="h-4 w-4 text-green-500" />
+                                                            <CheckCircle2 className="h-4 w-4 text-green-500"/>
                                                         )}
                                                     </Label>
                                                     <div className="text-sm text-muted-foreground mt-1">
@@ -180,7 +180,8 @@ const SoldierSelector = ({ taskId, taskStart, taskEnd, onAssignComplete }: Soldi
                             {soldiers.length === 0 && !loading && (
                                 <Alert>
                                     <AlertDescription>
-                                        No soldiers are available for this time slot. All soldiers have conflicting tasks.
+                                        No soldiers are available for this time slot. All soldiers have conflicting
+                                        tasks.
                                     </AlertDescription>
                                 </Alert>
                             )}
