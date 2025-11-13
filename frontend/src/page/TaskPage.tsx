@@ -69,6 +69,52 @@ const TaskPage = () => {
         }
     }
 
+    async function handleEditTask(newTask: Task) {
+        if (!user) {
+            console.error("No user logged in");
+            alert("You must be logged in to create a widget");
+            return;
+        }
+
+        const taskToEdit = {
+            id: newTask.id,
+            name: newTask.name,
+            description: newTask.description,
+            location: newTask.location,
+            reason: newTask.reason,
+            start: newTask.start,
+            end: newTask.end,
+            created: newTask.created,
+            assigned: newTask.assigned,
+
+        }
+
+        try{
+            const res = await fetch(apiUrl("/api/task/new_task"), {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(taskToEdit),
+            });
+
+            if (!res.ok) {
+                const errorText = await res.text();
+                console.log("Failed to edit task. Status:", res.status);
+                console.log("Error response:", errorText);
+                alert("Failed to edit task. Check console for details.");
+                return;
+            }
+
+            const text = await res.text();
+            if (text) {
+                setTasks(prev => prev.map(task => task.id === newTask.id ? newTask : task));
+                alert("Task edited successfully!");
+            }
+
+        } catch (err) {
+            console.log("Error editing task: ", err);
+        }
+    }
+
     return (
         <>
             <div className={"px-32"}>
@@ -103,8 +149,8 @@ const TaskPage = () => {
                                 <TaskCard
                                     key={task.id}
                                     task={task}
-                                    onDelete={(id: number | undefined) => setTasks(prev => prev.filter(t => t.id !== id))
-                                    }
+                                    onDelete={(id: number | undefined) => setTasks(prev => prev.filter(t => t.id !== id))}
+                                    onSubmit={handleEditTask}
                                 />
                             ))}
                         </div>

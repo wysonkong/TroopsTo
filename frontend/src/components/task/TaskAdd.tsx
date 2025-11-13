@@ -27,9 +27,14 @@ const initialTaskSet: Task = {
     end: "",
 }
 
+type TaskAddProp = {
+    onSubmit:(task: Task) => void;
+    currentTask?: Task;
+}
+
 // @ts-ignore
-const TaskAdd = ({onSubmit}) => {
-    const [taskData, setTaskData] = useState<Task>(initialTaskSet);
+const TaskAdd = ({onSubmit, currentTask}: TaskAddProp) => {
+    const [taskData, setTaskData] = useState<Task>(currentTask || initialTaskSet);
     const [open, setOpen] = useState(false)
     const {user} = useUser()
 
@@ -75,6 +80,7 @@ const TaskAdd = ({onSubmit}) => {
         endDateTime.setHours(eh, em, 0)
 
         const finalTaskData: Task = {
+            id: taskData ? taskData.id : undefined,
             name: taskData.name,
             description: taskData.description,
             location: taskData.location,
@@ -97,8 +103,8 @@ const TaskAdd = ({onSubmit}) => {
         <>
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button variant={"outline"} size={"lg"} className={"bg-accent"}>
-                        <Plus/>
+                    <Button variant={"outline"} size={currentTask ? "sm" : "lg"} className={"bg-accent"}>
+                        {currentTask ? "Edit" : <Plus/>}
                     </Button>
                 </DialogTrigger>
                 <div className={"max-w-md w-full"}>
@@ -106,9 +112,9 @@ const TaskAdd = ({onSubmit}) => {
 
                     <form id="addTask" onSubmit={handleSubmit} onReset={handleReset}>
                         <DialogHeader>
-                            <DialogTitle>New Task</DialogTitle>
+                            <DialogTitle>{currentTask ? "Edit Task" : "New Task"}</DialogTitle>
                             <DialogDescription>
-                                Add a New Task to Calendar.
+                                {currentTask? "Edit your task" : "Add a New Task to Calendar."}
                             </DialogDescription>
                         </DialogHeader>
                         <div className={"grid gap-4 m-4"}>

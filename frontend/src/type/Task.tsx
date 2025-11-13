@@ -13,16 +13,18 @@ export type TaskCardProps = {
         assigned?: Soldier[];
     }
     onDelete: (id: number | undefined) => void;
+    onSubmit: (task: Task) => Promise<void>;
+
 }
 
 export type Task = {
     id?: number;
     name: string;
-    description: string;
-    location: string;
-    reason: string;
-    start: string;
-    end: string;
-    created: string;
+    description?: string;
+    location?: string;
+    reason?: string;
+    start?: string;
+    end?: string;
+    created?: string;
     assigned?: Soldier[];
 };

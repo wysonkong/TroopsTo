@@ -12,8 +12,9 @@ import {useUser} from "@/provider/UserProvider.tsx";
 import type {TaskCardProps} from "@/type/Task.tsx";
 import SoldierSelector from "@/components/soldier/SoldierSelector.tsx";
 import {apiUrl} from "@/config/api.tsx";
+import TaskAdd from "@/components/task/TaskAdd.tsx";
 
-const TaskCard = ({task, onDelete}: TaskCardProps) => {
+const TaskCard = ({task, onDelete, onSubmit}: TaskCardProps) => {
     const {user} = useUser();
     const [open, setOpen] = useState(false);
     const admin = user?.role === "ADMIN";
@@ -100,6 +101,7 @@ const TaskCard = ({task, onDelete}: TaskCardProps) => {
                                 >
                                     Delete
                                 </Button>
+                                <TaskAdd onSubmit={onSubmit} currentTask={task}/>
                                 <SoldierSelector
                                     taskId={task.id!}
                                     taskStart={task.start!}
